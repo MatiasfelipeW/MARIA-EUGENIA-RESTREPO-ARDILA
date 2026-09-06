@@ -31,7 +31,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      background: #fcf7f5;  /* base femenina suave */
+      background: #fcf7f5;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -109,7 +109,6 @@
       color: #b99b93;
     }
 
-    /* barra de progreso elegante */
     .preloader-bar {
       width: 200px;
       height: 4px;
@@ -175,7 +174,7 @@
       opacity: 1;
     }
 
-    /* ----- RESTO DEL DISEÑO (igual que antes, con pequeños ajustes) ----- */
+    /* ----- RESTO DEL DISEÑO ----- */
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -553,10 +552,14 @@
       color: #2b1f1d;
     }
 
+    /* ----- FOOTER MEJORADO con crédito llamativo ----- */
     footer {
-      padding: 30px 0 40px;
+      padding: 30px 0 20px;
       border-top: 1px solid #ede5e2;
       margin-top: 20px;
+    }
+
+    .footer-grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -596,6 +599,67 @@
       color: #b28076;
     }
 
+    /* Crédito llamativo "Desarrollado por whiatcompany.lat" */
+    .footer-credit {
+      width: 100%;
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 2px dotted #e5d4cf;
+      position: relative;
+    }
+
+    .footer-credit::before {
+      content: "✦";
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #faf8f7;
+      padding: 0 12px;
+      color: #b99b93;
+      font-size: 1.2rem;
+    }
+
+    .footer-credit a {
+      color: #4f3531;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: 0.5px;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: 40px;
+      background: #f4ece9;
+      border: 1px solid #e5d4cf;
+    }
+
+    .footer-credit a i {
+      color: #b28076;
+      font-size: 0.9rem;
+      transition: 0.2s;
+    }
+
+    .footer-credit a:hover {
+      background: #efe6e3;
+      border-color: #b99b93;
+      color: #2b1f1d;
+      transform: scale(1.02);
+    }
+
+    .footer-credit a:hover i {
+      color: #8f6b63;
+    }
+
+    .footer-credit .heart-icon {
+      color: #b28076;
+      font-size: 0.8rem;
+      margin: 0 4px;
+    }
+
     @media (max-width: 700px) {
       .header-flex {
         flex-direction: column;
@@ -618,6 +682,18 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 20px;
+      }
+      .footer-grid {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .footer-social {
+        margin-top: 8px;
+      }
+      .footer-credit a {
+        font-size: 0.9rem;
+        padding: 4px 14px;
       }
     }
 
@@ -752,22 +828,36 @@
       </div>
     </main>
 
+    <!-- ========== FOOTER MEJORADO ========== -->
     <footer>
-      <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; width: 100%;">
-        <div class="footer-maria">
-          <i class="fas fa-shield-alt"></i>
-          <div>
-            María Eugenia Restrepo
-            <small>Asesoría en seguros · protección familiar</small>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-maria">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+              María Eugenia Restrepo
+              <small>Asesoría en seguros · protección familiar</small>
+            </div>
+          </div>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fas fa-envelope"></i></a>
           </div>
         </div>
-        <div class="footer-social">
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-whatsapp"></i></a>
-          <a href="#"><i class="fas fa-envelope"></i></a>
+
+        <!-- Crédito llamativo con enlace a whiatcompany.lat -->
+        <div class="footer-credit">
+          <a href="https://whiatcompany.lat" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-code"></i>
+            Desarrollado con <span class="heart-icon">❤️</span> por 
+            <strong>whiatcompany.lat</strong>
+            <i class="fas fa-arrow-right" style="font-size: 0.7rem; margin-left: 4px;"></i>
+          </a>
         </div>
-        <div style="font-size:0.8rem; color:#7a5a54; width:100%; text-align:center; margin-top:20px; border-top:1px solid #ede5e2; padding-top:20px;">
+
+        <div style="font-size:0.75rem; color:#a5857d; text-align:center; margin-top: 16px; letter-spacing: 0.5px;">
           © 2026 · Protege lo que más amas · María Eugenia Restrepo
         </div>
       </div>
@@ -777,30 +867,23 @@
   <!-- ========== SCRIPT: PRELOADER 5s + mostrar contenido ========== -->
   <script>
     (function() {
-      // --- preloader ---
       const preloader = document.getElementById('preloader');
       const mainContent = document.getElementById('main-content');
 
-      // Aseguramos que el contenido empiece oculto
       mainContent.classList.remove('visible');
 
-      // Función para ocultar preloader y mostrar contenido
       function showMain() {
         preloader.classList.add('hidden');
         mainContent.classList.add('visible');
-        // pequeño detalle: remover el preloader del flujo después de la transición
         setTimeout(() => {
           preloader.style.display = 'none';
         }, 900);
       }
 
-      // Temporizador de 5 segundos (5000 ms)
-      const timer = setTimeout(showMain, 5000);
+      // 5 segundos de preloader
+      setTimeout(showMain, 5000);
 
-      // Opcional: si el usuario hace clic en el preloader, podría saltar (pero mantenemos la elegancia)
-      // pero mejor dejamos que fluya.
-
-      // ----- interactividad de botones (placeholder) -----
+      // Interacciones de botones (placeholder)
       document.querySelectorAll('.btn-outline').forEach(btn => {
         btn.addEventListener('click', function(e) {
           e.preventDefault();
@@ -823,9 +906,7 @@
         });
       }
 
-      // si el usuario quiere saltar el preloader (para desarrollo, pero no lo forzamos)
-      // podríamos agregar un doble clic, pero lo dejamos limpio.
-      console.log('💐 Preloader activo · 5 segundos de construcción · María Eugenia Restrepo');
+      console.log('💐 Preloader activo · 5 segundos · María Eugenia Restrepo');
     })();
   </script>
 </body>
