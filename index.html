@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <title>María Eugenia Restrepo · Seguros</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #faf8f7;
+      color: #1e1e2a;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* HEADER */
+    header {
+      background: #ffffff;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.02);
+      padding: 20px 0;
+      border-bottom: 1px solid #f0ebe9;
+    }
+
+    .header-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      background: #d9c5c0;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4a2c2a;
+      font-size: 24px;
+      box-shadow: 0 4px 8px rgba(180, 130, 120, 0.15);
+    }
+
+    .brand-text {
+      font-weight: 600;
+      font-size: 1.5rem;
+      letter-spacing: -0.3px;
+      color: #2b1f1d;
+    }
+
+    .brand-text span {
+      font-weight: 300;
+      color: #7a5a54;
+      display: block;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      margin-top: -4px;
+    }
+
+    .cta-whatsapp {
+      background: #2b1f1d;
+      color: white;
+      padding: 10px 22px;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      transition: 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .cta-whatsapp i {
+      font-size: 1.2rem;
+    }
+
+    .cta-whatsapp:hover {
+      background: #4f3531;
+      border-color: #cbb2ab;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 48px 0 36px 0;
+      background: linear-gradient(145deg, #fffcfb 0%, #f6efec 100%);
+      border-radius: 0 0 40px 40px;
+      margin-bottom: 10px;
+    }
+
+    .hero-grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .hero-content {
+      flex: 1 1 380px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: #e5d4cf;
+      color: #3d2824;
+      padding: 4px 18px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #1e1412;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 i {
+      color: #b28076;
+      font-weight: 300;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #3f2e2a;
+      max-width: 480px;
+      margin-bottom: 28px;
+      font-weight: 300;
+    }
+
+    .hero-avatar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: white;
+      padding: 12px 24px 12px 16px;
+      border-radius: 80px;
+      box-shadow: 0 8px 24px rgba(120, 80, 70, 0.08);
+      width: fit-content;
+    }
+
+    .hero-avatar img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #dccac5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #4a2f2a;
+    }
+
+    .hero-avatar span {
+      font-weight: 500;
+      color: #1e1412;
+    }
+
+    .hero-avatar small {
+      display: block;
+      font-size: 0.8rem;
+      color: #7a5a54;
+      font-weight: 400;
+    }
+
+    .hero-image {
+      flex: 1 1 280px;
+      text-align: center;
+    }
+
+    .hero-image i {
+      font-size: 8rem;
+      color: #cbb2ab;
+      opacity: 0.5;
+      filter: drop-shadow(0 8px 16px rgba(150, 110, 100, 0.1));
+    }
+
+    /* SERVICES */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 600;
+      margin: 50px 0 28px 0;
+      color: #1e1412;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .section-title i {
+      color: #b28076;
+      font-size: 2rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .service-card {
+      background: white;
+      padding: 24px 12px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+      border: 1px solid #f3edeb;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      border-color: #dccac5;
+      box-shadow: 0 12px 28px rgba(140, 100, 90, 0.08);
+    }
+
+    .service-card i {
+      font-size: 2.4rem;
+      color: #8f6b63;
+      margin-bottom: 12px;
+    }
+
+    .service-card h3 {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #2b1f1d;
+      margin-bottom: 4px;
+    }
+
+    .service-card p {
+      font-size: 0.8rem;
+      color: #6b4f49;
+      font-weight: 300;
+    }
+
+    .highlight-badge {
+      background: #efe6e3;
+      padding: 2px 12px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #4f3531;
+      display: inline-block;
+      margin-top: 6px;
+    }
+
+    /* ADDITIONAL SERVICES (tienda + artículos) */
+    .additional-section {
+      background: #ffffff;
+      border-radius: 40px;
+      padding: 40px 30px;
+      margin: 50px 0 40px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.02);
+      border: 1px solid #f0e8e5;
+    }
+
+    .additional-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .additional-card {
+      flex: 1 1 200px;
+      background: #faf5f3;
+      border-radius: 32px;
+      padding: 32px 20px;
+      text-align: center;
+      transition: 0.15s;
+      border: 1px solid transparent;
+    }
+
+    .additional-card:hover {
+      border-color: #d9c5c0;
+      background: #fffbfa;
+    }
+
+    .additional-card i {
+      font-size: 2.8rem;
+      color: #7a5a54;
+      background: white;
+      width: 72px;
+      height: 72px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: 0 6px 14px rgba(130, 90, 80, 0.06);
+    }
+
+    .additional-card h4 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1e1412;
+    }
+
+    .additional-card p {
+      color: #5f4440;
+      font-weight: 300;
+      font-size: 0.95rem;
+      margin: 8px 0 12px;
+    }
+
+    .badge-coming {
+      background: #e5d4cf;
+      padding: 4px 16px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #3d2824;
+      display: inline-block;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #b99b93;
+      padding: 8px 24px;
+      border-radius: 60px;
+      font-weight: 500;
+      color: #3d2824;
+      font-size: 0.9rem;
+      transition: 0.2s;
+      cursor: default;
+      display: inline-block;
+    }
+
+    .btn-outline i {
+      margin-right: 6px;
+      font-size: 0.8rem;
+    }
+
+    .btn-outline:hover {
+      background: #efe6e3;
+      border-color: #8f6b63;
+    }
+
+    /* QUOTE / FOOTER */
+    .quote-block {
+      background: #f4ece9;
+      border-radius: 40px;
+      padding: 40px 30px;
+      margin: 40px 0 30px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .quote-block p {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #2b1f1d;
+    }
+
+    .quote-block i {
+      color: #7a5a54;
+      margin-right: 10px;
+    }
+
+    .quote-block .phone {
+      background: white;
+      padding: 12px 32px;
+      border-radius: 60px;
+      font-weight: 600;
+      color: #1e1412;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .phone i {
+      color: #2b1f1d;
+    }
+
+    footer {
+      padding: 30px 0 40px;
+      border-top: 1px solid #ede5e2;
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-maria {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-maria i {
+      font-size: 2rem;
+      color: #b99b93;
+    }
+
+    .footer-maria div {
+      font-weight: 500;
+    }
+
+    .footer-maria small {
+      display: block;
+      font-weight: 300;
+      color: #6b4f49;
+    }
+
+    .footer-social a {
+      color: #4f3531;
+      margin-left: 18px;
+      font-size: 1.3rem;
+      transition: 0.2s;
+    }
+
+    .footer-social a:hover {
+      color: #b28076;
+    }
+
+    /* responsive */
+    @media (max-width: 700px) {
+      .header-flex {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+      }
+
+      .cta-whatsapp {
+        justify-content: center;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .section-title {
+        font-size: 1.6rem;
+      }
+
+      .additional-card {
+        flex: 1 1 100%;
+      }
+
+      .quote-block {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+    }
+
+    /* small touches */
+    .text-fem {
+      color: #8f6b63;
+    }
+
+    .bg-soft {
+      background: #fcf7f5;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px dotted #e5d4cf;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-flex">
+      <div class="brand">
+        <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="brand-text">
+          María Eugenia R.
+          <span>Protege lo que más amas</span>
+        </div>
+      </div>
+      <a href="#" class="cta-whatsapp"><i class="fab fa-whatsapp"></i> 301 589 1014</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="hero-tag"><i class="fas fa-hand-holding-heart" style="margin-right: 6px;"></i> asesoría personalizada</div>
+            <h1>La mejor <i>protección</i> <br>para ti y los tuyos</h1>
+            <p>Te acompaño a encontrar el respaldo que mereces. Seguros y pólizas con las mejores compañías.</p>
+            <div class="hero-avatar">
+              <div style="width:48px;height:48px;border-radius:50%;background:#dccac5;display:flex;align-items:center;justify-content:center;color:#4a2f2a;font-weight:600;font-size:18px;">ME</div>
+              <div>
+                <span>María Eugenia Restrepo</span>
+                <small>Asesora de seguros</small>
+              </div>
+            </div>
+          </div>
+          <div class="hero-image">
+            <i class="fas fa-umbrella"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICIOS PRINCIPALES -->
+      <h2 class="section-title"><i class="fas fa-file-signature"></i> Asesoría en seguros y pólizas</h2>
+      <div class="services-grid">
+        <div class="service-card"><i class="fas fa-car"></i><h3>SOAT & Autos</h3><p>Protección vial</p><span class="highlight-badge">+ cobertura</span></div>
+        <div class="service-card"><i class="fas fa-home"></i><h3>Hogar</h3><p>Respaldo para tu casa</p></div>
+        <div class="service-card"><i class="fas fa-heartbeat"></i><h3>Salud</h3><p>Bienestar integral</p></div>
+        <div class="service-card"><i class="fas fa-heart"></i><h3>Vida</h3><p>Futuro asegurado</p></div>
+        <div class="service-card"><i class="fas fa-briefcase"></i><h3>Empresariales</h3><p>Negocios protegidos</p></div>
+        <div class="service-card"><i class="fas fa-plane"></i><h3>Viajes</h3><p>Tranquilidad en cada destino</p></div>
+      </div>
+
+      <!-- ADDITIONAL SERVICES: TIENDA + ARTÍCULOS (para expandir) -->
+      <div class="additional-section" id="servicios-adicionales">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+          <i class="fas fa-plus-circle" style="color:#8f6b63; font-size: 1.8rem;"></i>
+          <h3 style="font-size: 1.8rem; font-weight: 500; color:#1e1412;">Servicios adicionales</h3>
+        </div>
+        <div class="additional-flex">
+          <!-- Tienda -->
+          <div class="additional-card">
+            <i class="fas fa-store-alt"></i>
+            <h4>Tienda</h4>
+            <p>Accesorios, protecciones y más.</p>
+            <span class="badge-coming"><i class="far fa-clock"></i> Próximamente</span>
+            <div style="margin-top: 16px;"><span class="btn-outline"><i class="fas fa-arrow-right"></i> Explorar</span></div>
+          </div>
+          <!-- Artículos / blog -->
+          <div class="additional-card">
+            <i class="fas fa-newspaper"></i>
+            <h4>Artículos</h4>
+            <p>Consejos, novedades y educación.</p>
+            <span class="badge-coming"><i class="far fa-clock"></i> En desarrollo</span>
+            <div style="margin-top: 16px;"><span class="btn-outline"><i class="fas fa-arrow-right"></i> Leer</span></div>
+          </div>
+          <!-- puedes añadir más cards aquí -->
+          <div class="additional-card" style="background: #fff9f7;">
+            <i class="fas fa-star" style="color:#b28076;"></i>
+            <h4>Próximamente</h4>
+            <p>Más servicios pensados para ti.</p>
+            <span class="badge-coming">2026</span>
+          </div>
+        </div>
+        <p style="margin-top: 24px; text-align: center; color:#6b4f49; font-weight: 300; font-size: 0.95rem;">
+          <i class="fas fa-chevron-circle-right" style="color:#b99b93;"></i> 
+          Espacio para tu tienda y artículos · próximamente más contenido
+        </p>
+      </div>
+
+      <!-- CONFIANZA + CONTACTO -->
+      <div class="quote-block">
+        <div>
+          <p><i class="fas fa-quote-left"></i> Confianza que te respalda</p>
+          <span style="color:#4f3531; font-weight: 300;">Las mejores compañías, los mejores beneficios.</span>
+        </div>
+        <div class="phone">
+          <i class="fab fa-whatsapp"></i> 301 589 1014
+          <span style="font-weight: 300; font-size:0.9rem; color:#6b4f49;">· María Eugenia</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; width: 100%;">
+      <div class="footer-maria">
+        <i class="fas fa-shield-alt"></i>
+        <div>
+          María Eugenia Restrepo
+          <small>Asesoría en seguros · protección familiar</small>
+        </div>
+      </div>
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fas fa-envelope"></i></a>
+      </div>
+      <div style="font-size:0.8rem; color:#7a5a54; width:100%; text-align:center; margin-top:20px; border-top:1px solid #ede5e2; padding-top:20px;">
+        © 2026 · Protege lo que más amas · María Eugenia Restrepo
+      </div>
+    </div>
+  </footer>
+
+  <!-- tiny JS for interactivity (placeholder) -->
+  <script>
+    (function() {
+      // console log with a feminine touch
+      console.log('💐 María Eugenia Restrepo · Seguros y confianza');
+      // small future-ready: click on "Explorar" / "Leer" shows alert (placeholder)
+      document.querySelectorAll('.btn-outline').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const parent = this.closest('.additional-card');
+          let title = 'Servicio adicional';
+          if (parent) {
+            const h4 = parent.querySelector('h4');
+            if (h4) title = h4.innerText.trim();
+          }
+          alert(`✨ "${title}" — próximamente disponible. ¡Gracias por tu interés!`);
+        });
+      });
+      // WhatsApp CTA
+      const waBtn = document.querySelector('.cta-whatsapp');
+      if (waBtn) {
+        waBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          alert('📱 301 589 1014 · Escríbeme por WhatsApp para asesoría personalizada.');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
+```
