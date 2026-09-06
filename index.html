@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    /* ----- RESET & BASE ----- */
     * {
       margin: 0;
       padding: 0;
@@ -21,15 +22,166 @@
       background-color: #faf8f7;
       color: #1e1e2a;
       line-height: 1.5;
+      overflow-x: hidden;
     }
 
+    /* ----- PRELOADER (overlay) ----- */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: #fcf7f5;  /* base femenina suave */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+      backdrop-filter: blur(2px);
+    }
+
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .preloader-content {
+      text-align: center;
+      max-width: 420px;
+      padding: 20px;
+      animation: floatGlow 2.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(-12px) scale(1.02); }
+    }
+
+    .preloader-icon {
+      font-size: 4.8rem;
+      color: #b99b93;
+      background: #fff9f7;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: 0 20px 40px rgba(150, 110, 100, 0.08), 0 0 0 2px #f0e6e3 inset;
+      transition: 0.3s;
+    }
+
+    .preloader-icon i {
+      filter: drop-shadow(0 8px 12px rgba(140, 100, 90, 0.08));
+    }
+
+    .preloader-title {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #2b1f1d;
+      letter-spacing: -0.5px;
+    }
+
+    .preloader-title span {
+      color: #b28076;
+      font-weight: 300;
+      display: inline-block;
+      margin-left: 6px;
+    }
+
+    .preloader-sub {
+      font-size: 1rem;
+      color: #6b4f49;
+      font-weight: 300;
+      margin-top: 8px;
+      margin-bottom: 24px;
+      border-top: 2px dotted #e5d4cf;
+      border-bottom: 2px dotted #e5d4cf;
+      padding: 12px 0;
+      display: inline-block;
+    }
+
+    .preloader-sub i {
+      margin: 0 8px;
+      color: #b99b93;
+    }
+
+    /* barra de progreso elegante */
+    .preloader-bar {
+      width: 200px;
+      height: 4px;
+      background: #e5d4cf;
+      border-radius: 20px;
+      margin: 16px auto 0;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(140, 100, 90, 0.04);
+    }
+
+    .preloader-bar .fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #cbb2ab, #b28076, #8f6b63);
+      border-radius: 20px;
+      animation: fillProgress 5s cubic-bezier(0.25, 0.1, 0.15, 1) forwards;
+    }
+
+    @keyframes fillProgress {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    .preloader-tag {
+      margin-top: 24px;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #a5857d;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .preloader-tag i {
+      font-size: 0.6rem;
+      color: #b99b93;
+    }
+
+    .preloader-tag .dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #b99b93;
+      animation: pulseDot 1.8s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 0.2; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* ----- CONTENIDO PRINCIPAL (se oculta hasta que el preloader termine) ----- */
+    #main-content {
+      opacity: 0;
+      transition: opacity 0.9s ease;
+    }
+
+    #main-content.visible {
+      opacity: 1;
+    }
+
+    /* ----- RESTO DEL DISEÑO (igual que antes, con pequeños ajustes) ----- */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 24px;
     }
 
-    /* HEADER */
     header {
       background: #ffffff;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.02);
@@ -103,7 +255,6 @@
       border-color: #cbb2ab;
     }
 
-    /* HERO */
     .hero {
       padding: 48px 0 36px 0;
       background: linear-gradient(145deg, #fffcfb 0%, #f6efec 100%);
@@ -167,17 +318,17 @@
       width: fit-content;
     }
 
-    .hero-avatar img {
+    .hero-avatar div.avatar-placeholder {
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      object-fit: cover;
       background: #dccac5;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
       color: #4a2f2a;
+      font-weight: 600;
+      font-size: 18px;
     }
 
     .hero-avatar span {
@@ -204,7 +355,6 @@
       filter: drop-shadow(0 8px 16px rgba(150, 110, 100, 0.1));
     }
 
-    /* SERVICES */
     .section-title {
       font-size: 2rem;
       font-weight: 600;
@@ -273,7 +423,6 @@
       margin-top: 6px;
     }
 
-    /* ADDITIONAL SERVICES (tienda + artículos) */
     .additional-section {
       background: #ffffff;
       border-radius: 40px;
@@ -366,7 +515,6 @@
       border-color: #8f6b63;
     }
 
-    /* QUOTE / FOOTER */
     .quote-block {
       background: #f4ece9;
       border-radius: 40px;
@@ -448,30 +596,24 @@
       color: #b28076;
     }
 
-    /* responsive */
     @media (max-width: 700px) {
       .header-flex {
         flex-direction: column;
         align-items: stretch;
         gap: 16px;
       }
-
       .cta-whatsapp {
         justify-content: center;
       }
-
       .hero h1 {
         font-size: 2.2rem;
       }
-
       .section-title {
         font-size: 1.6rem;
       }
-
       .additional-card {
         flex: 1 1 100%;
       }
-
       .quote-block {
         flex-direction: column;
         align-items: flex-start;
@@ -479,148 +621,186 @@
       }
     }
 
-    /* small touches */
-    .text-fem {
-      color: #8f6b63;
-    }
-
-    .bg-soft {
-      background: #fcf7f5;
-    }
-
-    hr {
-      border: none;
-      border-top: 2px dotted #e5d4cf;
-      margin: 20px 0;
-    }
+    .text-fem { color: #8f6b63; }
+    .bg-soft { background: #fcf7f5; }
+    hr { border: none; border-top: 2px dotted #e5d4cf; margin: 20px 0; }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container header-flex">
-      <div class="brand">
-        <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
-        <div class="brand-text">
-          María Eugenia R.
-          <span>Protege lo que más amas</span>
-        </div>
-      </div>
-      <a href="#" class="cta-whatsapp"><i class="fab fa-whatsapp"></i> 301 589 1014</a>
-    </div>
-  </header>
 
-  <main>
-    <div class="container">
-      <!-- HERO -->
-      <section class="hero">
-        <div class="hero-grid">
-          <div class="hero-content">
-            <div class="hero-tag"><i class="fas fa-hand-holding-heart" style="margin-right: 6px;"></i> asesoría personalizada</div>
-            <h1>La mejor <i>protección</i> <br>para ti y los tuyos</h1>
-            <p>Te acompaño a encontrar el respaldo que mereces. Seguros y pólizas con las mejores compañías.</p>
-            <div class="hero-avatar">
-              <div style="width:48px;height:48px;border-radius:50%;background:#dccac5;display:flex;align-items:center;justify-content:center;color:#4a2f2a;font-weight:600;font-size:18px;">ME</div>
-              <div>
-                <span>María Eugenia Restrepo</span>
-                <small>Asesora de seguros</small>
+  <!-- ========== PRELOADER ========== -->
+  <div id="preloader">
+    <div class="preloader-content">
+      <div class="preloader-icon">
+        <i class="fas fa-shield-alt"></i>
+      </div>
+      <div class="preloader-title">
+        Protege <span>lo que más amas</span>
+      </div>
+      <div class="preloader-sub">
+        <i class="fas fa-circle-notch fa-fw"></i> 
+        Sitio en construcción 
+        <i class="fas fa-circle-notch fa-fw"></i>
+      </div>
+      <div class="preloader-bar">
+        <div class="fill"></div>
+      </div>
+      <div class="preloader-tag">
+        <i class="fas fa-asterisk"></i>
+        <span class="dot"></span>
+        María Eugenia Restrepo
+        <span class="dot"></span>
+        <i class="fas fa-asterisk"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== CONTENIDO PRINCIPAL ========== -->
+  <div id="main-content">
+    <header>
+      <div class="container header-flex">
+        <div class="brand">
+          <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
+          <div class="brand-text">
+            María Eugenia R.
+            <span>Protege lo que más amas</span>
+          </div>
+        </div>
+        <a href="#" class="cta-whatsapp"><i class="fab fa-whatsapp"></i> 301 589 1014</a>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <!-- HERO -->
+        <section class="hero">
+          <div class="hero-grid">
+            <div class="hero-content">
+              <div class="hero-tag"><i class="fas fa-hand-holding-heart" style="margin-right: 6px;"></i> asesoría personalizada</div>
+              <h1>La mejor <i>protección</i> <br>para ti y los tuyos</h1>
+              <p>Te acompaño a encontrar el respaldo que mereces. Seguros y pólizas con las mejores compañías.</p>
+              <div class="hero-avatar">
+                <div class="avatar-placeholder">ME</div>
+                <div>
+                  <span>María Eugenia Restrepo</span>
+                  <small>Asesora de seguros</small>
+                </div>
               </div>
             </div>
+            <div class="hero-image">
+              <i class="fas fa-umbrella"></i>
+            </div>
           </div>
-          <div class="hero-image">
-            <i class="fas fa-umbrella"></i>
+        </section>
+
+        <!-- SERVICIOS PRINCIPALES -->
+        <h2 class="section-title"><i class="fas fa-file-signature"></i> Asesoría en seguros y pólizas</h2>
+        <div class="services-grid">
+          <div class="service-card"><i class="fas fa-car"></i><h3>SOAT & Autos</h3><p>Protección vial</p><span class="highlight-badge">+ cobertura</span></div>
+          <div class="service-card"><i class="fas fa-home"></i><h3>Hogar</h3><p>Respaldo para tu casa</p></div>
+          <div class="service-card"><i class="fas fa-heartbeat"></i><h3>Salud</h3><p>Bienestar integral</p></div>
+          <div class="service-card"><i class="fas fa-heart"></i><h3>Vida</h3><p>Futuro asegurado</p></div>
+          <div class="service-card"><i class="fas fa-briefcase"></i><h3>Empresariales</h3><p>Negocios protegidos</p></div>
+          <div class="service-card"><i class="fas fa-plane"></i><h3>Viajes</h3><p>Tranquilidad en cada destino</p></div>
+        </div>
+
+        <!-- ADDITIONAL SERVICES: TIENDA + ARTÍCULOS -->
+        <div class="additional-section" id="servicios-adicionales">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+            <i class="fas fa-plus-circle" style="color:#8f6b63; font-size: 1.8rem;"></i>
+            <h3 style="font-size: 1.8rem; font-weight: 500; color:#1e1412;">Servicios adicionales</h3>
+          </div>
+          <div class="additional-flex">
+            <div class="additional-card">
+              <i class="fas fa-store-alt"></i>
+              <h4>Tienda</h4>
+              <p>Accesorios, protecciones y más.</p>
+              <span class="badge-coming"><i class="far fa-clock"></i> Próximamente</span>
+              <div style="margin-top: 16px;"><span class="btn-outline"><i class="fas fa-arrow-right"></i> Explorar</span></div>
+            </div>
+            <div class="additional-card">
+              <i class="fas fa-newspaper"></i>
+              <h4>Artículos</h4>
+              <p>Consejos, novedades y educación.</p>
+              <span class="badge-coming"><i class="far fa-clock"></i> En desarrollo</span>
+              <div style="margin-top: 16px;"><span class="btn-outline"><i class="fas fa-arrow-right"></i> Leer</span></div>
+            </div>
+            <div class="additional-card" style="background: #fff9f7;">
+              <i class="fas fa-star" style="color:#b28076;"></i>
+              <h4>Próximamente</h4>
+              <p>Más servicios pensados para ti.</p>
+              <span class="badge-coming">2026</span>
+            </div>
+          </div>
+          <p style="margin-top: 24px; text-align: center; color:#6b4f49; font-weight: 300; font-size: 0.95rem;">
+            <i class="fas fa-chevron-circle-right" style="color:#b99b93;"></i> 
+            Espacio para tu tienda y artículos · próximamente más contenido
+          </p>
+        </div>
+
+        <!-- CONFIANZA + CONTACTO -->
+        <div class="quote-block">
+          <div>
+            <p><i class="fas fa-quote-left"></i> Confianza que te respalda</p>
+            <span style="color:#4f3531; font-weight: 300;">Las mejores compañías, los mejores beneficios.</span>
+          </div>
+          <div class="phone">
+            <i class="fab fa-whatsapp"></i> 301 589 1014
+            <span style="font-weight: 300; font-size:0.9rem; color:#6b4f49;">· María Eugenia</span>
           </div>
         </div>
-      </section>
-
-      <!-- SERVICIOS PRINCIPALES -->
-      <h2 class="section-title"><i class="fas fa-file-signature"></i> Asesoría en seguros y pólizas</h2>
-      <div class="services-grid">
-        <div class="service-card"><i class="fas fa-car"></i><h3>SOAT & Autos</h3><p>Protección vial</p><span class="highlight-badge">+ cobertura</span></div>
-        <div class="service-card"><i class="fas fa-home"></i><h3>Hogar</h3><p>Respaldo para tu casa</p></div>
-        <div class="service-card"><i class="fas fa-heartbeat"></i><h3>Salud</h3><p>Bienestar integral</p></div>
-        <div class="service-card"><i class="fas fa-heart"></i><h3>Vida</h3><p>Futuro asegurado</p></div>
-        <div class="service-card"><i class="fas fa-briefcase"></i><h3>Empresariales</h3><p>Negocios protegidos</p></div>
-        <div class="service-card"><i class="fas fa-plane"></i><h3>Viajes</h3><p>Tranquilidad en cada destino</p></div>
       </div>
+    </main>
 
-      <!-- ADDITIONAL SERVICES: TIENDA + ARTÍCULOS (para expandir) -->
-      <div class="additional-section" id="servicios-adicionales">
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-          <i class="fas fa-plus-circle" style="color:#8f6b63; font-size: 1.8rem;"></i>
-          <h3 style="font-size: 1.8rem; font-weight: 500; color:#1e1412;">Servicios adicionales</h3>
-        </div>
-        <div class="additional-flex">
-          <!-- Tienda -->
-          <div class="additional-card">
-            <i class="fas fa-store-alt"></i>
-            <h4>Tienda</h4>
-            <p>Accesorios, protecciones y más.</p>
-            <span class="badge-coming"><i class="far fa-clock"></i> Próximamente</span>
-            <div style="margin-top: 16px;"><span class="btn-outline"><i class="fas fa-arrow-right"></i> Explorar</span></div>
-          </div>
-          <!-- Artículos / blog -->
-          <div class="additional-card">
-            <i class="fas fa-newspaper"></i>
-            <h4>Artículos</h4>
-            <p>Consejos, novedades y educación.</p>
-            <span class="badge-coming"><i class="far fa-clock"></i> En desarrollo</span>
-            <div style="margin-top: 16px;"><span class="btn-outline"><i class="fas fa-arrow-right"></i> Leer</span></div>
-          </div>
-          <!-- puedes añadir más cards aquí -->
-          <div class="additional-card" style="background: #fff9f7;">
-            <i class="fas fa-star" style="color:#b28076;"></i>
-            <h4>Próximamente</h4>
-            <p>Más servicios pensados para ti.</p>
-            <span class="badge-coming">2026</span>
+    <footer>
+      <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; width: 100%;">
+        <div class="footer-maria">
+          <i class="fas fa-shield-alt"></i>
+          <div>
+            María Eugenia Restrepo
+            <small>Asesoría en seguros · protección familiar</small>
           </div>
         </div>
-        <p style="margin-top: 24px; text-align: center; color:#6b4f49; font-weight: 300; font-size: 0.95rem;">
-          <i class="fas fa-chevron-circle-right" style="color:#b99b93;"></i> 
-          Espacio para tu tienda y artículos · próximamente más contenido
-        </p>
-      </div>
-
-      <!-- CONFIANZA + CONTACTO -->
-      <div class="quote-block">
-        <div>
-          <p><i class="fas fa-quote-left"></i> Confianza que te respalda</p>
-          <span style="color:#4f3531; font-weight: 300;">Las mejores compañías, los mejores beneficios.</span>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+          <a href="#"><i class="fas fa-envelope"></i></a>
         </div>
-        <div class="phone">
-          <i class="fab fa-whatsapp"></i> 301 589 1014
-          <span style="font-weight: 300; font-size:0.9rem; color:#6b4f49;">· María Eugenia</span>
+        <div style="font-size:0.8rem; color:#7a5a54; width:100%; text-align:center; margin-top:20px; border-top:1px solid #ede5e2; padding-top:20px;">
+          © 2026 · Protege lo que más amas · María Eugenia Restrepo
         </div>
       </div>
-    </div>
-  </main>
+    </footer>
+  </div>
 
-  <footer>
-    <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; width: 100%;">
-      <div class="footer-maria">
-        <i class="fas fa-shield-alt"></i>
-        <div>
-          María Eugenia Restrepo
-          <small>Asesoría en seguros · protección familiar</small>
-        </div>
-      </div>
-      <div class="footer-social">
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-whatsapp"></i></a>
-        <a href="#"><i class="fas fa-envelope"></i></a>
-      </div>
-      <div style="font-size:0.8rem; color:#7a5a54; width:100%; text-align:center; margin-top:20px; border-top:1px solid #ede5e2; padding-top:20px;">
-        © 2026 · Protege lo que más amas · María Eugenia Restrepo
-      </div>
-    </div>
-  </footer>
-
-  <!-- tiny JS for interactivity (placeholder) -->
+  <!-- ========== SCRIPT: PRELOADER 5s + mostrar contenido ========== -->
   <script>
     (function() {
-      // console log with a feminine touch
-      console.log('💐 María Eugenia Restrepo · Seguros y confianza');
-      // small future-ready: click on "Explorar" / "Leer" shows alert (placeholder)
+      // --- preloader ---
+      const preloader = document.getElementById('preloader');
+      const mainContent = document.getElementById('main-content');
+
+      // Aseguramos que el contenido empiece oculto
+      mainContent.classList.remove('visible');
+
+      // Función para ocultar preloader y mostrar contenido
+      function showMain() {
+        preloader.classList.add('hidden');
+        mainContent.classList.add('visible');
+        // pequeño detalle: remover el preloader del flujo después de la transición
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 900);
+      }
+
+      // Temporizador de 5 segundos (5000 ms)
+      const timer = setTimeout(showMain, 5000);
+
+      // Opcional: si el usuario hace clic en el preloader, podría saltar (pero mantenemos la elegancia)
+      // pero mejor dejamos que fluya.
+
+      // ----- interactividad de botones (placeholder) -----
       document.querySelectorAll('.btn-outline').forEach(btn => {
         btn.addEventListener('click', function(e) {
           e.preventDefault();
@@ -633,6 +813,7 @@
           alert(`✨ "${title}" — próximamente disponible. ¡Gracias por tu interés!`);
         });
       });
+
       // WhatsApp CTA
       const waBtn = document.querySelector('.cta-whatsapp');
       if (waBtn) {
@@ -641,8 +822,11 @@
           alert('📱 301 589 1014 · Escríbeme por WhatsApp para asesoría personalizada.');
         });
       }
+
+      // si el usuario quiere saltar el preloader (para desarrollo, pero no lo forzamos)
+      // podríamos agregar un doble clic, pero lo dejamos limpio.
+      console.log('💐 Preloader activo · 5 segundos de construcción · María Eugenia Restrepo');
     })();
   </script>
 </body>
 </html>
-```
